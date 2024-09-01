@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:tag="2"
+    tools:context=".TicTacToe.TicTacToeFragment">
+
+    <TextView
+        android:id="@+id/game_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/ready_to_play"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/butt_0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF0000"
+        android:tag="0"
+        android:text="@string/x"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/butt_1"
+        app:layout_constraintEnd_toStartOf="@+id/butt_1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/butt_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF0000"
+        android:tag="1"
+        android:text="@string/x"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/butt_2"
+        app:layout_constraintEnd_toStartOf="@+id/butt_2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/butt_0" />
+
+    <Button
+        android:id="@+id/butt_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="#FF0000"
+        android:tag="2"
+        android:text="@string/x"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/butt_1"
+        app:layout_constraintTop_toBottomOf="@+id/game_status" />
+
+    <Button
+        android:id="@+id/butt_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF0000"
+        android:tag="3"
+        android:text="@string/x"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/butt_4"
+        app:layout_constraintEnd_toStartOf="@+id/butt_4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/butt_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF0000"
+        android:tag="4"
+        android:text="@string/x"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/butt_5"
+        app:layout_constraintEnd_toStartOf="@+id/butt_5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/butt_3" />
+
+    <Button
+        android:id="@+id/butt_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF0000"
+        android:tag="5"
+        android:text="@string/x"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/butt_4"
+        app:layout_constraintTop_toBottomOf="@+id/butt_2" />
+
+    <Button
+        android:id="@+id/butt_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF0000"
+        android:tag="6"
+        android:text="@string/x"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/butt_7"
+        app:layout_constraintEnd_toStartOf="@+id/butt_7"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/butt_7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF0000"
+        android:tag="7"
+        android:text="@string/x"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/butt_8"
+        app:layout_constraintEnd_toStartOf="@+id/butt_8"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/butt_6" />
+
+    <Button
+        android:id="@+id/butt_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF0000"
+        android:tag="8"
+        android:text="@string/x"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/butt_7"
+        app:layout_constraintTop_toBottomOf="@+id/butt_5" />
+
+    <Button
+        android:id="@+id/start_butt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#B80000"
+        android:text="@string/start"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/butt_8" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

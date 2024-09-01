@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">TicTacToe</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ready_to_play">Ready To Play</string>
+    <string name="x">X</string>
+    <string name="start">Start</string>
+    <string name="play_offline">Play Offline</string>
+    <string name="offline">Offline</string>
+    <string name="enter_the_room_id">Enter the room ID</string>
+    <string name="join_room">Join Room</string>
+    <string name="or">Or</string>
+    <string name="create_room">Create Room</string>
+    <string name="play_online">Play Online</string>
 </resources>
