@@ -96,7 +96,11 @@ class TicTacToeFragment : Fragment() {
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    showExitConfirmationDialog()
+                    if(TicTacToeGame.ticTacToeGameData.value?.gameId != "-1") {
+                        showExitConfirmationDialog()
+                    }else{
+                        findNavController().popBackStack()
+                    }
                 }
             })
 
