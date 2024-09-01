@@ -11,6 +11,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.tictactoe.TicTacToe.GameStatus
 import com.example.tictactoe.TicTacToe.TicTacToeGame
 import com.example.tictactoe.TicTacToe.TicTacToeGameData
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlin.random.Random
@@ -18,6 +21,7 @@ import kotlin.random.nextInt
 
 class HomeFragment : Fragment() {
 
+    private lateinit var adView: AdView
     private lateinit var offlineButt: Button
     private lateinit var createRoomButt: Button
     private lateinit var joinRoomButt: Button
@@ -32,6 +36,12 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        MobileAds.initialize(requireContext())
+        adView = view.findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+
         offlineButt = view.findViewById(R.id.offline_butt)
         createRoomButt = view.findViewById(R.id.create_room_butt)
         joinRoomButt = view.findViewById(R.id.join_room_butt)
@@ -91,9 +101,23 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun startFragment() {
-        val action = HomeFragmentDirections.actionGlobalTicTacToeFragment(0) // for offline mode
-        findNavController().navigate(action)
+    private fun startFragment() { // for offline mode
+        findNavController().navigate(R.id.action_global_ticTacToeFragment)
+    }
+
+    override fun onPause() {
+        adView.pause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adView.resume()
+    }
+
+    override fun onDestroy() {
+        adView.destroy()
+        super.onDestroy()
     }
 
 }

@@ -9,11 +9,7 @@
         android:id="@+id/ticTacToeFragment"
         android:name="com.example.tictactoe.TicTacToe.TicTacToeFragment"
         android:label="fragment_tic_tac_toe"
-        tools:layout="@layout/fragment_tic_tac_toe" >
-        <argument
-            android:name="gameMode"
-            app:argType="integer" />
-    </fragment>
+        tools:layout="@layout/fragment_tic_tac_toe" />
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.tictactoe.HomeFragment"
