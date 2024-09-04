@@ -3,20 +3,25 @@ package com.example.tictactoe.TicTacToe
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.navigation.fragment.findNavController
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.tictactoe.R
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class TicTacToeFragment : Fragment() {
+class TicTacToeActivity : AppCompatActivity() {
+
+    private lateinit var adView: AdView
 
     private lateinit var butt0: Button
     private lateinit var butt1: Button
@@ -31,31 +36,36 @@ class TicTacToeFragment : Fragment() {
     private lateinit var gameStatusText: TextView
     private var ticTacToeGameData: TicTacToeGameData? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tic_tac_toe, container, false)
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_tic_tac_toe)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        MobileAds.initialize(this)
+        adView = findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
 
         TicTacToeGame.fetchTicTacToeGameData()
 
-        butt0 = view.findViewById(R.id.butt_0)
-        butt1 = view.findViewById(R.id.butt_1)
-        butt2 = view.findViewById(R.id.butt_2)
-        butt3 = view.findViewById(R.id.butt_3)
-        butt4 = view.findViewById(R.id.butt_4)
-        butt5 = view.findViewById(R.id.butt_5)
-        butt6 = view.findViewById(R.id.butt_6)
-        butt7 = view.findViewById(R.id.butt_7)
-        butt8 = view.findViewById(R.id.butt_8)
-        startButt = view.findViewById(R.id.start_butt)
-        gameStatusText = view.findViewById(R.id.game_status)
+        butt0 = findViewById(R.id.butt_0)
+        butt1 = findViewById(R.id.butt_1)
+        butt2 = findViewById(R.id.butt_2)
+        butt3 = findViewById(R.id.butt_3)
+        butt4 = findViewById(R.id.butt_4)
+        butt5 = findViewById(R.id.butt_5)
+        butt6 = findViewById(R.id.butt_6)
+        butt7 = findViewById(R.id.butt_7)
+        butt8 = findViewById(R.id.butt_8)
+        startButt = findViewById(R.id.start_butt)
+        gameStatusText = findViewById(R.id.game_status)
 
-        TicTacToeGame.ticTacToeGameData.observe(viewLifecycleOwner) {
+        TicTacToeGame.ticTacToeGameData.observe(this) {
             ticTacToeGameData = it
             initiatingUI()
         }
@@ -92,14 +102,14 @@ class TicTacToeFragment : Fragment() {
             start()
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
+        onBackPressedDispatcher.addCallback(
+            this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     if(TicTacToeGame.ticTacToeGameData.value?.gameId != "-1") {
                         showExitConfirmationDialog()
                     }else{
-                        findNavController().popBackStack()
+                        finish()
                     }
                 }
             })
@@ -174,11 +184,11 @@ class TicTacToeFragment : Fragment() {
     private fun clicking(tag: Int) {
         ticTacToeGameData?.apply {
             if (gameStatus != GameStatus.Start) {
-                Toast.makeText(requireContext(), "Game not started yet", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@TicTacToeActivity, "Game not started yet", Toast.LENGTH_LONG).show()
             } else {
 
                 if (gameId != "-1" && turn != TicTacToeGame.myID) {
-                    Toast.makeText(requireContext(), "It is not your turn", Toast.LENGTH_LONG)
+                    Toast.makeText(this@TicTacToeActivity, "It is not your turn", Toast.LENGTH_LONG)
                         .show()
                     return
                 }
@@ -227,16 +237,12 @@ class TicTacToeFragment : Fragment() {
 
     private fun showExitConfirmationDialog() {
         // Create and show the confirmation dialog
-        AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(this)
             .setMessage("Are you sure you want to exit the game?")
             .setPositiveButton("Yes") { _, _ ->
                 // If user presses "Yes", start newGame
-                findNavController().popBackStack()
-                if (TicTacToeGame.myID == "X") {
-                    Firebase.firestore.collection("TicTacToeGame")
-                        .document(TicTacToeGame.ticTacToeGameData.value?.gameId.toString())
-                        .delete()
-                } else {
+                finish()
+                 if(TicTacToeGame.myID == "O" && TicTacToeGame.ticTacToeGameData.value?.gameId != "-1") {
                     Firebase.firestore.collection("TicTacToeGame")
                         .document(TicTacToeGame.ticTacToeGameData.value?.gameId.toString())
                         .get()
@@ -253,6 +259,26 @@ class TicTacToeFragment : Fragment() {
             }
             .setCancelable(false)
             .show()
+    }
+
+    override fun onDestroy() {
+        adView.destroy()
+        super.onDestroy()
+        if (TicTacToeGame.myID == "X" && TicTacToeGame.ticTacToeGameData.value?.gameId != "-1"){
+            Firebase.firestore.collection("TicTacToeGame")
+                .document(TicTacToeGame.ticTacToeGameData.value?.gameId.toString())
+                .delete()
+        }
+    }
+
+    override fun onPause() {
+        adView.pause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adView.resume()
     }
 
 }

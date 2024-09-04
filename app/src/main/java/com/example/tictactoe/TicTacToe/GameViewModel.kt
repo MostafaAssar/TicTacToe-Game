@@ -30,7 +30,8 @@ object TicTacToeGame {
                     .addSnapshotListener { value, _ ->
                         val ticTacToeGameData =
                             value?.toObject(TicTacToeGameData::class.java)
-                        _ticTacToeGameData.postValue(ticTacToeGameData!!)
+                        if (ticTacToeGameData != null)
+                            _ticTacToeGameData.postValue(ticTacToeGameData!!)
                     }
             }
         }
